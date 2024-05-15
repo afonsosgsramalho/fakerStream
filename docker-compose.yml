@@ -16,15 +16,16 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    networks: 
+      - faker
     depends_on:
-      zookeeper:
-        condition: service_healthy
+      - zookeeper
     ports:
-      - '9092:9092'
+      - 9092:9092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -33,26 +34,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - faker
-
+      
   kafdrop:
-    image: obsidiandynamics/kafdrop
-    restart: "on-failure"
-    ports:
-      - "9000:9000"
-    environment:
-      KAFKA_BROKERCONNECT: "kafka:29092"
-    depends_on:
-      kafka:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD", "bash", "-c", 'nc -z localhost 9000' ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
+    image: obsidiandynamics/kafdrop:latest
+    networks: 
       - faker
+    depends_on:
+      - kafka
+    ports:
+      - 9000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+
 
   cassandra_db:
     image: cassandra:latest
@@ -70,3 +63,4 @@ services:
 
 networks:
   faker:
+    driver: bridge
