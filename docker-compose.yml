@@ -1,4 +1,5 @@
 services:
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -34,6 +35,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./requirements.txt:/var/lib/kafka/requirements.txt
+      - ./fakerProducer:/var/lib/kafka/fakerProducer
       
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
@@ -46,6 +50,16 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
+  fakerproducer:
+    build:
+      context: ./fakerProducer
+      dockerfile: Dockerfile
+    container_name: fakerProducer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - faker
 
   cassandra_db:
     image: cassandra:latest

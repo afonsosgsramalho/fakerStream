@@ -1,4 +1,5 @@
 from faker import Faker
+from kafka import KafkaProducer
 import time
 
 fake = Faker()
@@ -14,8 +15,6 @@ def generate_fake_data():
         'company': fake.company(),
         'birthdate': fake.date_of_birth(minimum_age=18, maximum_age=90).strftime('%Y-%m-%d'),
         'credit_card_number': fake.credit_card_number(),
-        'credit_card_expiry': fake.credit_card_expire(),
-        'credit_card_provider': fake.credit_card_provider(),
         'username': fake.user_name(),
         'password': fake.password(),
         'profile_pic': fake.image_url(),
@@ -25,8 +24,15 @@ def generate_fake_data():
 
 
 if __name__ == "__main__":
+    topicName = 'fakerPerson'
+
+    producer = KafkaProducer(bootstrap_servers = 'kafka:29092')
+
     while True:
         fake_record = generate_fake_data()
-        time.sleep(0.3)
+        producer.send(topicName, bytes(str(fake_record), 'utf-8'))
+        producer.flush()
+        time.sleep(0.5)
+        
         print(fake_record)
 
