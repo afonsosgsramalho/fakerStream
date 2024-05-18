@@ -1,9 +1,9 @@
-[0m[[0m[0mdebug[0m] [0m[0mPackaging /home/agr/programming/faker-stream/streamProcessor/target/scala-3.4.1/streamprocessor_3-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /home/agr/programming/faker-stream/streamProcessor/target/scala-2.13/fakerstream_2.13-1.0.jar ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	StreamProcessor.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-3.4.1/classes/StreamProcessor.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-2.13/classes/StreamProcessor.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	StreamProcessor$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-3.4.1/classes/StreamProcessor$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	StreamProcessor.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-3.4.1/classes/StreamProcessor.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-2.13/classes/StreamProcessor$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StreamProcessor$$typecreator1$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/agr/programming/faker-stream/streamProcessor/target/scala-2.13/classes/StreamProcessor$$typecreator1$1.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m

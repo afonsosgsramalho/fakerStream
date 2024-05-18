@@ -1,5 +1,13 @@
-scalaVersion := "3.4.1"
+scalaVersion := "2.13.10"
 
-var sparkVersion = "3.5.1"
+name := "fakerStream"
+version := "1.0"
 
-libraryDependencies += "org.apache.spark" %% "spark-core" % sparkVersion
+val sparkVersion = "3.5.0"
+libraryDependencies ++= Seq(
+    "org.apache.spark" %% "spark-core" % sparkVersion % "provided",
+    "org.apache.spark" %% "spark-sql" % sparkVersion % "provided",
+    "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion % "provided",
+    "com.datastax.spark" %% "spark-cassandra-connector" % sparkVersion % "provided",
+    "com.datastax.cassandra" % "cassandra-driver-core" % "3.11.3" % "provided"
+)
