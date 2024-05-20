@@ -1,25 +1,2 @@
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:16:21: not found: value sparkSession[0m
-[0m[[0m[31merror[0m] [0m[0m        val spark = sparkSession [0m
-[0m[[0m[31merror[0m] [0m[0m                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:18:21: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .master(settings.spark("master")) [0m
-[0m[[0m[31merror[0m] [0m[0m                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:19:22: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .appName(settings.spark("fakerStream")) [0m
-[0m[[0m[31merror[0m] [0m[0m                     ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:20:55: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .config("spark.cassandra.connection.host",settings.cassandra("host"))  [0m
-[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:21:55: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .config("spark.cassandra.connection.host",settings.cassandra("host")) [0m
-[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:22:54: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .config("spark.cassandra.auth.username", settings.cassandra("username")) [0m
-[0m[[0m[31merror[0m] [0m[0m                                                     ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:23:54: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .config("spark.cassandra.auth.password", settings.cassandra("password")) [0m
-[0m[[0m[31merror[0m] [0m[0m                                                     ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/StreamProcessor.scala:24:53: not found: value settings[0m
-[0m[[0m[31merror[0m] [0m[0m            .config("spark.sql.shuffle.partitions", settings.spark("shuffle_partitions")) [0m
-[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
+[0m[[0m[33mwarn[0m] [0m[0m1 deprecation (since 2.13.3); re-run with -deprecation for details[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

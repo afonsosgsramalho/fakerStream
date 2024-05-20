@@ -1,5 +1,11 @@
-services:
+x-spark-common: &spark-common
+  image: bitnami/spark:latest
+  volumes:
+    - ./jobs:/opt/bitnami/spark/jobs
+  networks:
+    - faker
 
+services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -35,9 +41,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-      - ./requirements.txt:/var/lib/kafka/requirements.txt
-      - ./fakerProducer:/var/lib/kafka/fakerProducer
       
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
@@ -60,6 +63,30 @@ services:
         condition: service_healthy
     networks:
       - faker
+
+  spark-master:
+    <<: *spark-common
+    command: bin/spark-class org.apache.spark.deploy.master.Master
+    ports:
+      - "9090:8080"
+      - "7077:7077"
+
+  spark-worker:
+    <<: *spark-common
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_MASTER_URL: spark://spark-master:7077
+
+  spark-scala:
+    build:
+      context: ./streamProcessor
+      dockerfile: Dockerfile
+    container_name: spark-scala
 
   cassandra_db:
     image: cassandra:latest

@@ -1,2 +1,4 @@
 streamProcessor/target/
+streamProcessor/target/streams/*
 streamProcessor/project/target/
+streamProcessor/src/main/resources
