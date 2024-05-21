@@ -18,6 +18,11 @@ object StreamProcessor {
                 "host" -> "localhost",
                 "username" -> "cassandra",
                 "password" -> "cassandra"
+            ),
+            "kafka" -> Map(
+                "server_address" -> "kafka:29092",
+                "topic" -> "fakerPerson",
+                "min_partitions" -> "1"
             )
         )
 
@@ -33,10 +38,37 @@ object StreamProcessor {
             .config("spark.cassandra.auth.password", settings("cassandra")("password"))
             .config("spark.sql.shuffle.partitions", settings("spark")("shuffle_partitions"))
             .getOrCreate()
+
+        // read streams from Kafka
+        var inputDF = spark
+            .readStream
+            .format("kafka")
+            .option("kafka.bootstrap.servers", settings("kafka")("server_address"))
+            .option("subscribe", settings("kafka")("topic"))
+            .option("minPartitions", settings("kafka")("min_partitions"))
+            .load()
+
+        // rename columns and add proper timestamps
+         val finalDF = inputDF
+            .withColumn("uuid", makeUUID())
+            .withColumn("ingest_timestamp",current_timestamp().as("ingest_timestamp"))
+
+        // write query to Cassandra
+        val query = finalDF
+            .writeStream
+            .foreachBatch { (batchDF:DataFrame,batchID:Long) =>
+                println(s"Writing to Cassandra $batchID")
+                batchDF.write
+                    .cassandraFormat(settings("cassandra")("fakerPerson"), settings("cassandra")("keyspace"))
+                    .mode("append")
+                    .save()
+            }
+            .outputMode("update")
+            .start()
         
         // Your further processing logic here
         println("ola madafacas")
         println(spark)
-        println("Spark Version : " + spark.version) 
+        println("Spark Version : " + spark.version)
     }
 }
