@@ -58,8 +58,11 @@ object StreamProcessor {
             .writeStream
             .foreachBatch { (batchDF:DataFrame,batchID:Long) =>
                 println(s"Writing to Cassandra $batchID")
-                batchDF.write
-                    .cassandraFormat(settings("cassandra")("fakerPerson"), settings("cassandra")("keyspace"))
+                batchDF
+                    .write
+                    // .cassandraFormat(settings("cassandra")("fakerPerson"), settings("cassandra")("keyspace"))
+                    .format("org.apache.spark.sql.cassandra")
+                    .options(Map("table" -> "person", "keyspace" -> "fakerPerson"))
                     .mode("append")
                     .save()
             }

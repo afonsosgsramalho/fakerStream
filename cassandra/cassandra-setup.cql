@@ -1,9 +1,9 @@
 CREATE KEYSPACE IF NOT EXISTS fakerPerson 
     WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
-USE reddit;
+USE fakerPerson;
 
-CREATE TABLE IF NOT EXISTS fakerPerson(
+CREATE TABLE IF NOT EXISTS person(
     uuid uuid,
     id text,
     name text,
@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS fakerPerson(
 )
 WITH CLUSTERING ORDER BY (api_timestamp DESC);
 
-CREATE INDEX IF NOT EXISTS ON comments (uuid);
+CREATE INDEX IF NOT EXISTS ON person (uuid);

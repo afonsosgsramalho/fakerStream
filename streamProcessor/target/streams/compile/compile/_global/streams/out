@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/agr/programming/faker-stream/streamProcessor/src/main/scala/StreamProcessor.scala:62:22: value cassandraFormat is not a member of org.apache.spark.sql.DataFrameWriter[org.apache.spark.sql.Row][0m
+[0m[[0m[31merror[0m] [0m[0m/home/agr/agr/programming/pipelines/fakerStream/streamProcessor/src/main/scala/StreamProcessor.scala:63:22: value cassandraFormat is not a member of org.apache.spark.sql.DataFrameWriter[org.apache.spark.sql.Row][0m
 [0m[[0m[31merror[0m] [0m[0mpossible cause: maybe a semicolon is missing before `value cassandraFormat`?[0m
 [0m[[0m[31merror[0m] [0m[0m                    .cassandraFormat(settings("cassandra")("fakerPerson"), settings("cassandra")("keyspace"))[0m
 [0m[[0m[31merror[0m] [0m[0m                     ^[0m

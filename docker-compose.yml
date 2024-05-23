@@ -82,11 +82,11 @@ services:
       SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
 
-  spark-scala:
-    build:
-      context: ./streamProcessor
-      dockerfile: Dockerfile
-    container_name: spark-scala
+  # spark-scala:
+  #   build:
+  #     context: ./streamProcessor
+  #     dockerfile: Dockerfile
+  #   container_name: spark-scala
 
   cassandra_db:
     image: cassandra:latest
@@ -99,6 +99,8 @@ services:
       - HEAP_NEWSIZE=100M
       - CASSANDRA_USERNAME=cassandra
       - CASSANDRA_PASSWORD=cassandra
+    volumes:
+      - ./cassandra/cassandra-setup.cql:/docker-entrypoint-initdb.d/cassandra-setup.cql
     networks:
       - faker
 
