@@ -17,12 +17,14 @@ object StreamProcessor {
             "cassandra" -> Map(
                 "host" -> "localhost",
                 "username" -> "cassandra",
-                "password" -> "cassandra"
+                "password" -> "cassandra",
+
             ),
             "kafka" -> Map(
-                "server_address" -> "kafka:29092",
-                "topic" -> "fakerPerson",
-                "min_partitions" -> "1"
+                "server_address" -> "localhost:9092",//"kafka:29092",
+                "min_partitions" -> "1",
+                "topic" -> "fakerPerson"
+
             )
         )
 
@@ -34,8 +36,6 @@ object StreamProcessor {
             .master(settings("spark")("master"))
             .appName(settings("spark")("fakerStream"))
             .config("spark.cassandra.connection.host", settings("cassandra")("host"))
-            .config("spark.cassandra.auth.username", settings("cassandra")("username"))
-            .config("spark.cassandra.auth.password", settings("cassandra")("password"))
             .config("spark.sql.shuffle.partitions", settings("spark")("shuffle_partitions"))
             .getOrCreate()
 
@@ -48,10 +48,30 @@ object StreamProcessor {
             .option("minPartitions", settings("kafka")("min_partitions"))
             .load()
 
+        val schema = StructType(
+            Array(
+            StructField("name", StringType, nullable = false),
+            StructField("address", StringType, nullable = false),
+            StructField("email", StringType, nullable = false),
+            StructField("phone_number", IntegerType, nullable = false),
+            StructField("job", StringType, nullable = false),
+            StructField("company", StringType, nullable = false),
+            StructField("birthdate", TimestampType, nullable = false),
+            StructField("credit_card_number", IntegerType, nullable = false),
+            StructField("username", StringType, nullable = false),
+            )
+        )
+
+          val expandedDF = inputDF
+            .selectExpr("CAST(value AS STRING)")
+            .select(from_json(col("value"), schema).alias("data"))
+            .select("data.*")
+
         // rename columns and add proper timestamps
-         val finalDF = inputDF
+         val finalDF = expandedDF
             .withColumn("uuid", makeUUID())
             .withColumn("ingest_timestamp",current_timestamp().as("ingest_timestamp"))
+
 
         // write query to Cassandra
         val query = finalDF
@@ -62,15 +82,22 @@ object StreamProcessor {
                     .write
                     // .cassandraFormat(settings("cassandra")("fakerPerson"), settings("cassandra")("keyspace"))
                     .format("org.apache.spark.sql.cassandra")
-                    .options(Map("table" -> "person", "keyspace" -> "fakerPerson"))
+                    .options(Map("table" -> "person", "keyspace" -> "fakerperson"))
                     .mode("append")
                     .save()
             }
             .outputMode("update")
             .start()
+
+        // Keep the stream running
+        query.awaitTermination()
         
         // Your further processing logic here
-        println("ola madafacas")
+
+        println("OLA MADAFACAS")
+        // Get and print column names
+        val columnNames = finalDF.columns
+        println("Columns in finalDF: " + columnNames.mkString(", "))
         println(spark)
         println("Spark Version : " + spark.version)
     }

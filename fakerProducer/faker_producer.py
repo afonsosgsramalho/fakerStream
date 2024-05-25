@@ -15,9 +15,7 @@ def generate_fake_data():
         'company': fake.company(),
         'birthdate': fake.date_of_birth(minimum_age=18, maximum_age=90).strftime('%Y-%m-%d'),
         'credit_card_number': fake.credit_card_number(),
-        'username': fake.user_name(),
-        'password': fake.password(),
-        'profile_pic': fake.image_url(),
+       'username': fake.user_name()
     }
 
     return fake_record

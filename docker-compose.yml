@@ -1,7 +1,5 @@
 x-spark-common: &spark-common
   image: bitnami/spark:latest
-  volumes:
-    - ./jobs:/opt/bitnami/spark/jobs
   networks:
     - faker
 

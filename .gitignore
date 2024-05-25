@@ -4,3 +4,4 @@ streamProcessor/project/target/
 streamProcessor/src/main/resources
 .vscode
 .metals
+.cassandra

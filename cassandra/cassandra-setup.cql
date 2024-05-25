@@ -5,20 +5,18 @@ USE fakerPerson;
 
 CREATE TABLE IF NOT EXISTS person(
     uuid uuid,
-    id text,
     name text,
-    author text,
-    body text,
-    subreddit text,
-    upvotes int,
-    downvotes int,
-    over_18 boolean,
-    permalink text,
-    api_timestamp timestamp,
+    address text,
+    email text,
+    phone_number int,
+    job text,
+    company text,
+    birthdate timestamp,
+    credit_card_number int,
+    username text,
     ingest_timestamp timestamp,
-    sentiment_score float,
-    PRIMARY KEY((subreddit), api_timestamp)
+    PRIMARY KEY((email), ingest_timestamp)
 )
-WITH CLUSTERING ORDER BY (api_timestamp DESC);
+WITH CLUSTERING ORDER BY (ingest_timestamp DESC);
 
 CREATE INDEX IF NOT EXISTS ON person (uuid);
