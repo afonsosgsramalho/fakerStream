@@ -1,7 +1,7 @@
 streamProcessor/target/
 streamProcessor/target/streams/*
-streamProcessor/project/target/
-streamProcessor/src/main/resources
+streamProcessor/project/target/*
+streamProcessor/project/project/*
 .vscode
 .metals
 .cassandra

@@ -1,3 +1,5 @@
+package com.example
+
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming._
@@ -15,13 +17,13 @@ object StreamProcessor {
                 "shuffle_partitions" -> "200"
             ),
             "cassandra" -> Map(
-                "host" -> "localhost",
+                "host" -> "cassandra",
                 "username" -> "cassandra",
                 "password" -> "cassandra",
 
             ),
             "kafka" -> Map(
-                "server_address" -> "localhost:9092",//"kafka:29092",
+                "server_address" -> "kafka:29092", //"localhost:9092",
                 "min_partitions" -> "1",
                 "topic" -> "fakerPerson"
 

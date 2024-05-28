@@ -80,12 +80,6 @@ services:
       SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
 
-  # spark-scala:
-  #   build:
-  #     context: ./streamProcessor
-  #     dockerfile: Dockerfile
-  #   container_name: spark-scala
-
   cassandra:
     image: cassandra:latest
     container_name: cassandra
@@ -111,6 +105,25 @@ services:
     volumes:
       - ./cassandra/cassandra-setup.cql:/schema.cql
     command: /bin/bash -c "echo loading cassandra keyspace && cqlsh cassandra -f /schema.cql"
+    networks:
+      - faker
+
+  spark-app:
+    build:
+      context: ./streamProcessor
+      dockerfile: Dockerfile
+    container_name: spark-app
+    depends_on:
+      spark-master:
+        condition: service_started
+      spark-worker:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+      cassandra:
+        condition: service_healthy
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
     networks:
       - faker
 
