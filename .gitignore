@@ -5,3 +5,4 @@ streamProcessor/project/project/*
 .vscode
 .metals
 .cassandra
+/grafana/plugins/hadesarchitect-cassandra-datasource-3.0.0.zip

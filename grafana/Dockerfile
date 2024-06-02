@@ -1,4 +1,4 @@
 FROM grafana/grafana:latest
 
-# Install required plugin for cassandra
-RUN grafana-cli plugins install hadesarchitect-cassandra-datasource
+COPY ./dashboards /var/lib/grafana/dashboards
+COPY ./plugins/hadesarchitect-cassandra-datasource /var/lib/grafana/plugins/hadesarchitect-cassandra-datasource
