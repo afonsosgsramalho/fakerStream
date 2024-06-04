@@ -1,0 +1,73 @@
+{
+    "datasource": {
+        "type": "hadesarchitect-cassandra-datasource",
+        "uid": "zkkgdadVz"
+    },
+    "fieldConfig": {
+        "defaults": {
+            "custom": {
+                "align": "auto",
+                "cellOptions": {
+                    "type": "auto"
+                },
+                "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                    {
+                        "color": "green",
+                        "value": null
+                    },
+                    {
+                        "color": "red",
+                        "value": 80
+                    }
+                ]
+            },
+            "color": {
+                "mode": "thresholds"
+            }
+        },
+        "overrides": []
+    },
+    "gridPos": {
+        "h": 13,
+        "w": 15,
+        "x": 0,
+        "y": 0
+    },
+    "id": 1,
+    "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+            "show": false,
+            "reducer": [
+                "sum"
+            ],
+            "countRows": false,
+            "fields": ""
+        },
+        "frameIndex": 4
+    },
+    "pluginVersion": "11.0.0",
+    "targets": [
+        {
+            "datasource": {
+                "type": "hadesarchitect-cassandra-datasource",
+                "uid": "zkkgdadVz"
+            },
+            "datasourceId": 1,
+            "keyspace": "fakerperson",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "table": "person",
+            "target": "select name, birthdate, email, company from fakerperson.person;"
+        }
+    ],
+    "title": "Panel Title",
+    "type": "table"
+}
