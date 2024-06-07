@@ -4,7 +4,7 @@ The project is a streaming data pipeline based on generation of fake data.
 
 ## Architecture
 
-
+![architecture](https://github.com/afonsosgsramalho/fakerStream/assets/61236683/1e8655bf-3c7e-4999-937b-7a6c836d3bc0)
 
 The diagram shown above provides a detailed explanation into the pipeline's architecture.
 
